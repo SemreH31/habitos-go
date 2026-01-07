@@ -1,0 +1,13 @@
+# Binarios
+main
+server.exe
+
+# Secretos
+.env
+
+# Base de Datos
+*.db
+*.db-journal
+
+# Dependencias
+vendor/
