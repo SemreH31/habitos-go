@@ -1,0 +1,60 @@
+/* Definición de colores de Stitch */
+:root {
+    --primary: #13ec5b;
+    --background-dark: #102216;
+    --surface-dark: #182e21;
+    --input-dark: #1c2e23;
+    --text-gray: #9ca3af;
+}
+
+/* Configuraciones Globales */
+body {
+    background-color: var(--background-dark);
+    font-family: 'Manrope', sans-serif;
+    color: white;
+}
+
+/* Sombras neón de Stitch */
+.shadow-neon {
+    box-shadow: 0 0 15px rgba(19, 236, 91, 0.4);
+}
+
+/* Estilos para los inputs para que no se vean blancos */
+.input-container {
+    background-color: var(--input-dark) !important;
+    border: 1px solid #2d3f33 !important;
+    transition: all 0.3s ease;
+}
+
+.input-container:focus-within {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 1px var(--primary);
+}
+
+.input-field {
+    background: transparent !important;
+    color: white !important;
+    outline: none !important;
+    border: none !important;
+}
+
+/* Botón principal estilo Stitch */
+.btn-primary {
+    background-color: var(--primary) !important;
+    color: var(--background-dark) !important;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+/* Estilo de los tabs de Login/Signup */
+.tab-label:has(input:checked) {
+    background-color: var(--primary) !important;
+    color: var(--background-dark) !important;
+}

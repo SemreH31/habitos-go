@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html class="dark" lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Habit Tracker - Login</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="min-h-screen flex items-center justify-center antialiased">
+    <div class="w-full max-w-[420px] bg-background-dark shadow-2xl rounded-3xl overflow-hidden border border-gray-800">
+        
+        <div class="relative w-full h-48">
+            <div class="absolute inset-0 bg-gradient-to-t from-background-dark to-transparent z-10"></div>
+            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000" class="w-full h-full object-cover">
+            <div class="absolute bottom-4 w-full z-20 text-center">
+                <div class="inline-flex p-3 rounded-xl bg-primary shadow-neon mb-2">
+                    <span class="material-symbols-outlined text-background-dark text-2xl">check_circle</span>
+                </div>
+                <h1 class="text-2xl font-extrabold tracking-tight">Build Better Habits</h1>
+            </div>
+        </div>
+
+        <div class="p-8">
+            <form action="/login" method="POST" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-semibold mb-2">Email Address</label>
+                    <div class="input-container flex items-center rounded-lg px-4 h-12">
+                        <span class="material-symbols-outlined text-gray-500 mr-2">mail</span>
+                        <input type="email" name="email" class="input-field w-full" placeholder="name@example.com" required>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold mb-2">Password</label>
+                    <div class="input-container flex items-center rounded-lg px-4 h-12">
+                        <span class="material-symbols-outlined text-gray-500 mr-2">lock</span>
+                        <input type="password" name="password" class="input-field w-full" placeholder="••••••••" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary w-full h-12 rounded-lg shadow-neon">
+                    Log In
+                </button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

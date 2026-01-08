@@ -24,6 +24,13 @@ func InitDB(filepath string) {
 }
 
 func createTables() {
+	// Tabla de usuarios
+	usersTable := `
+    CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        email TEXT UNIQUE NOT NULL,
+        password TEXT NOT NULL
+    );`
 	// Tabla de hábitos
 	habitsTable := `
 	CREATE TABLE IF NOT EXISTS habits (
@@ -37,4 +44,11 @@ func createTables() {
 	if err != nil {
 		log.Fatal("Error creando tabla habits:", err)
 	}
+
+	_, err = DB.Exec(usersTable)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	log.Println("Base de datos y tablas listas.")
 }
