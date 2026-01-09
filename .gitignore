@@ -11,3 +11,6 @@ server.exe
 
 # Dependencias
 vendor/
+*.log
+*.exe
+.air.toml

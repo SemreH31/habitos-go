@@ -38,21 +38,24 @@ func main() {
 	_, _ = database.DB.Exec(query, "test@example.com", "123456")
 
 	// 4. Servidor de archivos estáticos (Solución Nuclear)
-	fs := http.FileServer(http.Dir("./web/static"))
+
+	staticDir := "./web/static"
+	fs := http.FileServer(http.Dir(staticDir))
+
 	http.Handle("/static/", http.StripPrefix("/static/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		path := r.URL.Path
 
-		// Si el archivo termina en .css, forzamos SÍ O SÍ el header
+		// FORZADO ATÓMICO: Si falla aquí, no fallará en ningún lado
 		if len(path) >= 4 && path[len(path)-4:] == ".css" {
 			w.Header().Set("Content-Type", "text/css; charset=utf-8")
-		}
-		// Si el archivo termina en .js, forzamos SÍ O SÍ el header
-		if len(path) >= 3 && path[len(path)-3:] == ".js" {
+		} else if len(path) >= 3 && path[len(path)-3:] == ".js" {
 			w.Header().Set("Content-Type", "application/javascript; charset=utf-8")
 		}
 
-		// Seguridad: Evita que el navegador intente adivinar el tipo
 		w.Header().Set("X-Content-Type-Options", "nosniff")
+
+		// LOG PARA DEBUG: Esto te dirá en la consola qué está pidiendo el navegador
+		log.Printf("Sirviendo archivo estático: %s", path)
 
 		fs.ServeHTTP(w, r)
 	})))
