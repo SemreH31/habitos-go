@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>Habit Tracker Login</title>
+  <title>Habit Tracker</title>
 
   <!-- Fuentes -->
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 
-  <!-- Tailwind CDN -->
+  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <script id="tailwind-config">
     tailwind.config = {
@@ -38,16 +38,16 @@
     };
   </script>
 
-  <!-- Estilos externos -->
-  <link rel="stylesheet" href="/static/css/style.css"/>
+  <!-- CSS propio -->
+  <link href="/static/css/style.css" rel="stylesheet"/>
 </head>
 
 <body class="bg-background-light dark:bg-background-dark min-h-screen flex flex-col items-center justify-center font-display antialiased selection:bg-primary selection:text-background-dark">
   <div class="w-full max-w-[420px] h-full min-h-screen flex flex-col relative bg-background-light dark:bg-background-dark shadow-2xl overflow-hidden">
-    <!-- Header Image & Logo Area -->
+    <!-- Header -->
     <div class="relative w-full h-[240px] shrink-0">
       <div class="absolute inset-0 bg-gradient-to-b from-transparent to-background-light dark:to-background-dark z-10"></div>
-      <div class="w-full h-full bg-center bg-cover" data-alt="Dark abstract background with green neon accents" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBHzYLPiWqDEE8QZxDhcAwymXv7Z3Liiq1MZn6XuthGUYCX0sHCiC7tHK59mBhrxOV8MG5XEsaN_jEJIJ_RIKhSvxQYLtNS8cxs9IFsmB0cqZEV_UEfS26gOQb6eRu8oFU1eI5Ry9nLAqRHG3t32QDspP4yFLAPcsrrZNgG41ufodTbZ0Y2oi63KL_ngwfXpRnG8QZppIlD96DwV6lj-BZYjH-KzMT8P1nUq0ZjsQjN3rWyLX0diUFqgZS9zGJmNnZKoj-IVTuI0xjC');"></div>
+      <div class="w-full h-full bg-center bg-cover" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBHzYLPiWqDEE8QZxDhcAwymXv7Z3Liiq1MZn6XuthGUYCX0sHCiC7tHK59mBhrxOV8MG5XEsaN_jEJIJ_RIKhSvxQYLtNS8cxs9IFsmB0cqZEV_UEfS26gOQb6eRu8oFU1eI5Ry9nLAqRHG3t32QDspP4yFLAPcsrrZNgG41ufodTbZ0Y2oi63KL_ngwfXpRnG8QZppIlD96DwV6lj-BZYjH-KzMT8P1nUq0ZjsQjN3rWyLX0diUFqgZS9zGJmNnZKoj-IVTuI0xjC');"></div>
       <div class="absolute bottom-4 left-0 right-0 z-20 px-6 text-center">
         <div class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary mb-4 shadow-[0_0_15px_rgba(19,236,91,0.4)]">
           <span class="material-symbols-outlined text-background-dark text-3xl">check_circle</span>
@@ -57,75 +57,96 @@
       </div>
     </div>
 
-    <!-- Scrollable Content Area -->
+    <!-- Tabs -->
     <div class="flex-1 px-6 pb-8 overflow-y-auto">
-      <!-- Tab Toggle -->
       <div class="py-6">
-        <div class="flex h-12 w-full items-center justify-center rounded-lg bg-gray-200 dark:bg-surface-dark p-1">
-          <label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-[4px] px-2 transition-all duration-200 has-[:checked]:bg-white dark:has-[:checked]:bg-primary has-[:checked]:shadow-sm has-[:checked]:text-black dark:has-[:checked]:text-background-dark text-slate-500 dark:text-gray-400 text-sm font-bold leading-normal relative group">
-            <span class="relative z-10">Log In</span>
-            <input checked="" class="invisible w-0 absolute" name="auth_type" type="radio" value="Log In"/>
-          </label>
-          <label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-[4px] px-2 transition-all duration-200 has-[:checked]:bg-white dark:has-[:checked]:bg-primary has-[:checked]:shadow-sm has-[:checked]:text-black dark:has-[:checked]:text-background-dark text-slate-500 dark:text-gray-400 text-sm font-bold leading-normal relative group">
-            <span class="relative z-10">Sign Up</span>
-            <input class="invisible w-0 absolute" name="auth_type" type="radio" value="Sign Up"/>
-          </label>
+        <div class="flex h-12 w-full items-center justify-center rounded-lg bg-gray-200 dark:bg-surface-dark p-1 gap-1">
+          <button id="btn-login" class="tab-btn active">Login</button>
+          <button id="btn-signup" class="tab-btn">Sign Up</button>
         </div>
       </div>
 
-      <!-- Login Form -->
-      <form class="flex flex-col gap-5">
-        <!-- Email Field -->
-        <div class="flex flex-col gap-2">
-          <label class="text-slate-900 dark:text-white text-sm font-semibold leading-normal">Email Address</label>
-          <div class="flex w-full items-center rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-input-dark focus-within:border-primary dark:focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-colors overflow-hidden h-12">
-            <div class="flex items-center justify-center pl-4 pr-2 text-slate-400 dark:text-gray-500">
-              <span class="material-symbols-outlined text-[20px]">mail</span>
+      <!-- FORMS -->
+      <div id="forms-box" class="flex flex-col gap-5">
+        <!-- LOGIN -->
+        <form id="form-login" class="auth-form active" action="/login" method="POST">
+          <div class="flex flex-col gap-5">
+            <div class="flex flex-col gap-2">
+              <label class="text-slate-900 dark:text-white text-sm font-semibold leading-normal">Email Address</label>
+              <div class="flex w-full items-center rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-input-dark focus-within:border-primary dark:focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-colors overflow-hidden h-12">
+                <div class="flex items-center justify-center pl-4 pr-2 text-slate-400 dark:text-gray-500"><span class="material-symbols-outlined text-[20px]">mail</span></div>
+                <input class="w-full bg-transparent border-none text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-gray-500 focus:ring-0 text-base font-normal h-full py-0 pl-1" name="email" placeholder="name@example.com" required type="email"/>
+              </div>
             </div>
-            <input class="w-full bg-transparent border-none text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-gray-500 focus:ring-0 text-base font-normal h-full py-0 pl-1" placeholder="name@example.com" type="email"/>
-          </div>
-        </div>
 
-        <!-- Password Field -->
-        <div class="flex flex-col gap-2">
-          <div class="flex justify-between items-end">
-            <label class="text-slate-900 dark:text-white text-sm font-semibold leading-normal">Password</label>
-          </div>
-          <div class="flex w-full items-center rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-input-dark focus-within:border-primary dark:focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-colors overflow-hidden h-12">
-            <div class="flex items-center justify-center pl-4 pr-2 text-slate-400 dark:text-gray-500">
-              <span class="material-symbols-outlined text-[20px]">lock</span>
+            <div class="flex flex-col gap-2">
+              <label class="text-slate-900 dark:text-white text-sm font-semibold leading-normal">Password</label>
+              <div class="flex w-full items-center rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-input-dark focus-within:border-primary dark:focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-colors overflow-hidden h-12">
+                <div class="flex items-center justify-center pl-4 pr-2 text-slate-400 dark:text-gray-500"><span class="material-symbols-outlined text-[20px]">lock</span></div>
+                <input class="w-full bg-transparent border-none text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-gray-500 focus:ring-0 text-base font-normal h-full py-0 pl-1" id="pwd-login" name="password" placeholder="Enter your password" required type="password"/>
+                <button class="toggle-pwd flex items-center justify-center px-4 text-slate-400 dark:text-gray-500 hover:text-slate-600 dark:hover:text-white transition-colors" type="button">
+                  <span class="material-symbols-outlined text-[20px]">visibility_off</span>
+                </button>
+              </div>
             </div>
-            <input class="w-full bg-transparent border-none text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-gray-500 focus:ring-0 text-base font-normal h-full py-0 pl-1" placeholder="Enter your password" type="password"/>
-            <button class="flex items-center justify-center px-4 text-slate-400 dark:text-gray-500 hover:text-slate-600 dark:hover:text-white transition-colors" type="button">
-              <span class="material-symbols-outlined text-[20px]">visibility_off</span>
-            </button>
-          </div>
-          <div class="flex justify-end">
-            <a class="text-xs font-medium text-slate-500 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors" href="#">Forgot Password?</a>
-          </div>
-        </div>
 
-        <!-- Primary Action Button -->
-        <button class="mt-2 flex w-full items-center justify-center rounded-lg bg-primary h-12 px-6 text-background-dark text-base font-bold leading-normal hover:opacity-90 active:scale-[0.98] transition-all shadow-[0_4px_14px_rgba(19,236,91,0.3)]" type="button">
-          Log In
-        </button>
-      </form>
+            <button class="mt-2 flex w-full items-center justify-center rounded-lg bg-primary h-12 px-6 text-background-dark text-base font-bold leading-normal hover:opacity-90 active:scale-[0.98] transition-all shadow-[0_4px_14px_rgba(19,236,91,0.3)]" type="submit">Log In</button>
+          </div>
+        </form>
 
-      <!-- Divider -->
+        <!-- SIGN-UP -->
+        <form id="form-signup" class="auth-form active" action="/register" method="POST">
+          <div class="flex flex-col gap-5">
+            <div class="flex flex-col gap-2">
+              <label class="text-slate-900 dark:text-white text-sm font-semibold leading-normal">Full Name</label>
+              <input class="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-input-dark text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-gray-500 focus:ring-1 focus:ring-primary focus:border-primary px-4 h-12" name="name" placeholder="John Doe" required type="text"/>
+            </div>
+
+            <div class="flex flex-col gap-2">
+              <label class="text-slate-900 dark:text-white text-sm font-semibold leading-normal">Email Address</label>
+              <input class="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-input-dark text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-gray-500 focus:ring-1 focus:ring-primary focus:border-primary px-4 h-12" name="email" placeholder="name@example.com" required type="email"/>
+            </div>
+
+            <div class="flex flex-col gap-2">
+              <label class="text-slate-900 dark:text-white text-sm font-semibold leading-normal">Password</label>
+              <div class="flex w-full items-center rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-input-dark focus-within:border-primary dark:focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-colors overflow-hidden h-12">
+                <div class="flex items-center justify-center pl-4 pr-2 text-slate-400 dark:text-gray-500"><span class="material-symbols-outlined text-[20px]">lock</span></div>
+                <input class="w-full bg-transparent border-none text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-gray-500 focus:ring-0 text-base font-normal h-full py-0 pl-1" id="pwd-signup" name="password" placeholder="Enter your password" required type="password"/>
+                <button class="toggle-pwd flex items-center justify-center px-4 text-slate-400 dark:text-gray-500 hover:text-slate-600 dark:hover:text-white transition-colors" type="button">
+                  <span class="material-symbols-outlined text-[20px]">visibility_off</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="flex flex-col gap-2">
+              <label class="text-slate-900 dark:text-white text-sm font-semibold leading-normal">Confirm Password</label>
+              <div class="flex w-full items-center rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-input-dark focus-within:border-primary dark:focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-colors overflow-hidden h-12">
+                <div class="flex items-center justify-center pl-4 pr-2 text-slate-400 dark:text-gray-500"><span class="material-symbols-outlined text-[20px]">lock</span></div>
+                <input class="w-full bg-transparent border-none text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-gray-500 focus:ring-0 text-base font-normal h-full py-0 pl-1" id="pwd-confirm" name="password_confirm" placeholder="Repeat your password" required type="password"/>
+                <button class="toggle-pwd flex items-center justify-center px-4 text-slate-400 dark:text-gray-500 hover:text-slate-600 dark:hover:text-white transition-colors" type="button">
+                  <span class="material-symbols-outlined text-[20px]">visibility_off</span>
+                </button>
+              </div>
+            </div>
+
+            <button class="mt-2 flex w-full items-center justify-center rounded-lg bg-primary h-12 px-6 text-background-dark text-base font-bold leading-normal hover:opacity-90 active:scale-[0.98] transition-all shadow-[0_4px_14px_rgba(19,236,91,0.3)]" type="submit">Create Account</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Divider + Social + Footer -->
       <div class="relative flex py-8 items-center">
         <div class="flex-grow border-t border-gray-300 dark:border-gray-700"></div>
         <span class="flex-shrink mx-4 text-slate-400 dark:text-gray-500 text-xs font-medium uppercase tracking-wider">Or continue with</span>
         <div class="flex-grow border-t border-gray-300 dark:border-gray-700"></div>
       </div>
 
-      <!-- Social Login Options -->
       <div class="flex flex-col gap-3">
         <button class="relative flex w-full items-center justify-center gap-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-surface-dark h-12 px-4 text-slate-700 dark:text-white text-sm font-semibold hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors" type="button">
           <span class="material-symbols-outlined text-[22px]">ios</span>
           <span>Continue with Apple</span>
         </button>
         <button class="relative flex w-full items-center justify-center gap-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-surface-dark h-12 px-4 text-slate-700 dark:text-white text-sm font-semibold hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors" type="button">
-          <!-- Google SVG Icon -->
           <svg class="w-[20px] h-[20px]" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
             <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
@@ -136,7 +157,6 @@
         </button>
       </div>
 
-      <!-- Footer -->
       <div class="mt-8 text-center">
         <p class="text-xs text-slate-400 dark:text-gray-500">
           By continuing, you agree to our
@@ -147,5 +167,8 @@
       </div>
     </div>
   </div>
+
+  <!-- Scripts -->
+  <script src="/static/js/login.js"></script>
 </body>
 </html>

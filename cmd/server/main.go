@@ -41,8 +41,6 @@ func main() {
 
 	// 4. Servidor de archivos estáticos
 	wd, _ := os.Getwd()
-	log.Printf("Working dir: %s", wd)
-	log.Printf("Buscando .\\web\\static\\css\\style.css  ->  existe? %#v", fileExists(filepath.Join(wd, "web", "static", "css", "style.css")))
 	staticDir := filepath.Join(wd, "web", "static")
 	http.Handle("/static/", http.StripPrefix("/static/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		path := r.URL.Path
