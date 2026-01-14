@@ -7,6 +7,8 @@ import (
 	"mime"
 	"net/http"
 	"os"
+	"path/filepath"
+	"strings"
 
 	"github.com/joho/godotenv"
 )
@@ -37,27 +39,34 @@ func main() {
 	query := `INSERT OR IGNORE INTO users (email, password) VALUES (?, ?)`
 	_, _ = database.DB.Exec(query, "test@example.com", "123456")
 
-	// 4. Servidor de archivos estáticos (Solución Nuclear)
-
-	staticDir := "./web/static"
-	fs := http.FileServer(http.Dir(staticDir))
-
+	// 4. Servidor de archivos estáticos
+	wd, _ := os.Getwd()
+	log.Printf("Working dir: %s", wd)
+	log.Printf("Buscando .\\web\\static\\css\\style.css  ->  existe? %#v", fileExists(filepath.Join(wd, "web", "static", "css", "style.css")))
+	staticDir := filepath.Join(wd, "web", "static")
 	http.Handle("/static/", http.StripPrefix("/static/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		path := r.URL.Path
 
-		// FORZADO ATÓMICO: Si falla aquí, no fallará en ningún lado
-		if len(path) >= 4 && path[len(path)-4:] == ".css" {
+		// 1. Fijamos el header ANTES de cualquier escritura
+		switch {
+		case strings.HasSuffix(path, ".css"):
 			w.Header().Set("Content-Type", "text/css; charset=utf-8")
-		} else if len(path) >= 3 && path[len(path)-3:] == ".js" {
+		case strings.HasSuffix(path, ".js"):
 			w.Header().Set("Content-Type", "application/javascript; charset=utf-8")
+		default:
+			w.Header().Set("Content-Type", "text/plain; charset=utf-8")
 		}
-
 		w.Header().Set("X-Content-Type-Options", "nosniff")
 
-		// LOG PARA DEBUG: Esto te dirá en la consola qué está pidiendo el navegador
-		log.Printf("Sirviendo archivo estático: %s", path)
-
-		fs.ServeHTTP(w, r)
+		// 2. Comprobamos que el archivo existe; si no, 404 claro
+		file := filepath.Join(staticDir, path)
+		if _, err := os.Stat(file); os.IsNotExist(err) {
+			log.Println("Serving file:", file)
+			http.NotFound(w, r)
+			return
+		}
+		// 3. Ahora sí, servimos
+		http.ServeFile(w, r, file) // mejor que fs.ServeHTTP para este caso
 	})))
 	// 5. Rutas
 	http.HandleFunc("/login", auth.LoginHandler)
@@ -68,4 +77,8 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+func fileExists(name string) bool {
+	_, err := os.Stat(name)
+	return !os.IsNotExist(err)
 }
