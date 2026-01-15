@@ -8,6 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Faltan botones o formularios');
         return;                 // ← aquí SÍ está permitido
     }
+    loginBtn.classList.add('active');
+    loginForm.classList.add('active');
+    signupForm.classList.remove('active');
 
     loginBtn.addEventListener('click', () => {
         loginForm.classList.add('active');
@@ -39,4 +42,27 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.toggle-pwd').forEach(btn =>
         btn.addEventListener('click', () => togglePwd(btn))
     );
+});
+document.getElementById('form-signup').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(e.target));
+    if (data.password !== data.password_confirm) {
+        alert("Passwords do not match");
+        return;
+    }
+
+    const res = await fetch('/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    });
+
+    const out = await res.json();
+    if (res.ok) {
+        alert(out.message);
+        e.target.reset();
+        document.getElementById('btn-login').click(); // ve a login
+    } else {
+        alert(out.error);
+    }
 });

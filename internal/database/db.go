@@ -52,3 +52,16 @@ func createTables() {
 
 	log.Println("Base de datos y tablas listas.")
 }
+
+const createUser = `
+INSERT INTO users (name, email, password) VALUES (?, ?, ?);
+`
+
+func CreateUser(name, email, hash []byte) (int64, error) {
+	res, err := DB.Exec(createUser, name, email, hash)
+	if err != nil {
+		return 0, err
+	}
+	id, _ := res.LastInsertId()
+	return id, nil
+}
