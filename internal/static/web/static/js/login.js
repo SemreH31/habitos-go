@@ -8,9 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Faltan botones o formularios');
         return;                 // ← aquí SÍ está permitido
     }
-    loginBtn.classList.add('active');
-    loginForm.classList.add('active');
-    signupForm.classList.remove('active');
 
     loginBtn.addEventListener('click', () => {
         loginForm.classList.add('active');
@@ -64,5 +61,24 @@ document.getElementById('form-signup').addEventListener('submit', async (e) => {
         document.getElementById('btn-login').click(); // ve a login
     } else {
         alert(out.error);
+    }
+});
+document.getElementById('form-login').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(e.target));
+
+    const res = await fetch('/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    });
+
+    const out = await res.json();
+    if (res.ok) {
+        // Por ahora redirigimos, pero aquí es donde manejaremos el JWT o Cookie
+        alert("¡Bienvenido!");
+        window.location.href = "/dashboard";
+    } else {
+        alert(out.error || "Error al iniciar sesión");
     }
 });

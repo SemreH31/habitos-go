@@ -24,4 +24,4 @@ Este es un proyecto de control de hábitos desarrollado en **Go**, diseñado par
 
 1. Clone el repositorio:
    ```bash
-   git clone <tu-url-de-github>
+   git clone <https://github.com/SemreH31/habitos-go>

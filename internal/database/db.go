@@ -65,3 +65,8 @@ func CreateUser(name, email, hash []byte) (int64, error) {
 	id, _ := res.LastInsertId()
 	return id, nil
 }
+func GetUserHashByEmail(email string) ([]byte, error) {
+	var hash []byte
+	err := DB.QueryRow(`SELECT password FROM users WHERE email = ?`, email).Scan(&hash)
+	return hash, err
+}
